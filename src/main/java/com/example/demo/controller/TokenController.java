@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class TokenController {
 	}
 
 	@RequestMapping(value = "/tokens", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public TokenLive getTokens(PaymentCard card) {
+	public TokenLive getTokenLive(@RequestBody PaymentCard card) {
 		String number = card.getNumber();
 		String firstSixDigits = paymentCardUtil.getFirstSixDigits(number);
 		PaymentCardDetail cardDetail = binListService.getCardDetail(firstSixDigits);
