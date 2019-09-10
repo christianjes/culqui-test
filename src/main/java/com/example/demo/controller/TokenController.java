@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.bean.PaymentCard;
 import com.example.demo.bean.PaymentCardDetail;
 import com.example.demo.bean.TokenLive;
-import com.example.demo.service.ApiService;
+import com.example.demo.service.BinListService;
 import com.example.demo.util.DateUtil;
 import com.example.demo.util.PaymentCardUtil;
 import com.example.demo.util.TokenUtil;
 
 @RestController
 public class TokenController {
-	private ApiService apiService;
+	private BinListService binListService;
 	private DateUtil dateUtil;
 	private PaymentCardUtil paymentCardUtil;
 	private TokenUtil tokenUtil;
 
-	public TokenController(ApiService apiService) {
-		this.apiService = apiService;
+	public TokenController(BinListService binListService) {
+		this.binListService = binListService;
 		dateUtil = new DateUtil();
 		paymentCardUtil = new PaymentCardUtil();
 		tokenUtil = new TokenUtil();
@@ -31,11 +31,11 @@ public class TokenController {
 	public TokenLive getTokens(PaymentCard card) {
 		String number = card.getNumber();
 		String firstSixDigits = paymentCardUtil.getFirstSixDigits(number);
-		PaymentCardDetail cardDetail = apiService.getCardDetail(firstSixDigits);
+		PaymentCardDetail cardDetail = binListService.getCardDetail(firstSixDigits);
 		TokenLive tokenLive = new TokenLive();
 		tokenLive.setBrand(cardDetail.getScheme());
 		String currentDate= dateUtil.getCurrentDate();
-		tokenLive.setCreationDate(currentDate);//"2019-01-01 18:00:00"
+		tokenLive.setCreationDate(currentDate);
 		String token = tokenUtil.buildTokenLive(card);
 		tokenLive.setToken(token);
 		return tokenLive;

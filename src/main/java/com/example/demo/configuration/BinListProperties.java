@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties("api.endpoint")
-public class ApiProperties {
+public class BinListProperties {
 	private String url;
 
 	public String getUrl() {
