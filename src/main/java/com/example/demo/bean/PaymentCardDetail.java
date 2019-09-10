@@ -1,6 +1,6 @@
 package com.example.demo.bean;
 
-public class CardDetail {
+public class PaymentCardDetail {
 	private String scheme;
 
 	public String getScheme() {

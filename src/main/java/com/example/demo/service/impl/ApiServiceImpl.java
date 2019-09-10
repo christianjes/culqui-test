@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.bean.CardDetail;
+import com.example.demo.bean.PaymentCardDetail;
 import com.example.demo.configuration.ApiProperties;
 import com.example.demo.service.ApiService;
 
@@ -22,11 +22,11 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public CardDetail getCardDetail(String code) {
+	public PaymentCardDetail getCardDetail(String code) {
 		String url = apiProperties.getUrl();
 		Map<String,String> uriVariables = new HashMap<>();
-		uriVariables.put("{first-six-digits-credit-card}", code);
-		return restTemplate.getForObject(url, CardDetail.class, uriVariables);
+		uriVariables.put("{first-six-digits-payment-card}", code);
+		return restTemplate.getForObject(url, PaymentCardDetail.class, uriVariables);
 	}
 
 }

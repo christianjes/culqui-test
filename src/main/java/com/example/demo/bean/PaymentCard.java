@@ -1,6 +1,6 @@
 package com.example.demo.bean;
 
-public class Card {
+public class PaymentCard {
 	private String number;
 	private int expirationYear;
 	private int expirationMonth;
