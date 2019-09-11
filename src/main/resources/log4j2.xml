@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Properties>
+		<Property name="log-path">/var/log/culqui-test</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} %M(%F:%L) - %m%n"></PatternLayout>
+		</Console>
+		<RollingFile name="file-log"
+			fileName="${log-path}/culqui-test.log"
+			filePattern="${log-path}/culqui-test-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} %M(%F:%L) -
+					%m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="file-log-error"
+			fileName="${log-path}/culqui-test-error.log"
+			filePattern="${log-path}/culqio-test-error-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} %M(%F:%L) -
+					%m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.example.demo" additivity="false">
+			<appender-ref ref="file-log" level="info" />
+			<appender-ref ref="file-log-error" level="error" />
+		</Logger>
+		<Root level="all" additivity="false">
+			<appender-ref ref="console" level="info" />
+			<appender-ref ref="console" level="error" />
+		</Root>
+	</Loggers>
+</Configuration>
