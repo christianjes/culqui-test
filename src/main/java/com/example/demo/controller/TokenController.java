@@ -20,36 +20,27 @@ import com.example.demo.util.TokenUtil;
 @RestController
 public class TokenController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
 	private BinListService binListService;
-	private DateUtil dateUtil;
-	private PaymentCardUtil paymentCardUtil;
-	private TokenUtil tokenUtil;
-	private ConvertUtil convertUtil;
-
+	
 	public TokenController(BinListService binListService) {
 		this.binListService = binListService;
-		dateUtil = new DateUtil();
-		paymentCardUtil = new PaymentCardUtil();
-		tokenUtil = new TokenUtil();
-		convertUtil = new ConvertUtil();
 	}
 
 	@RequestMapping(value = "/tokens", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public TokenLive getTokenLive(@RequestBody PaymentCard card) {
 		logger.info("::::SERVICE INPUT::::");
-		logger.info(convertUtil.fromObjectToJsonString(card));
+		logger.info(ConvertUtil.fromObjectToJsonString(card));
 		String number = card.getNumber();
-		String firstSixDigits = paymentCardUtil.getFirstSixDigits(number);
+		String firstSixDigits = PaymentCardUtil.getFirstSixDigits(number);
 		PaymentCardDetail cardDetail = binListService.getCardDetail(firstSixDigits);
 		TokenLive tokenLive = new TokenLive();
 		tokenLive.setBrand(cardDetail.getScheme());
-		String currentDate= dateUtil.getCurrentDate();
+		String currentDate= DateUtil.getCurrentDate();
 		tokenLive.setCreationDate(currentDate);
-		String token = tokenUtil.buildTokenLive(card);
+		String token = TokenUtil.buildTokenLive(card);
 		tokenLive.setToken(token);
 		logger.info("::::SERVICE OUTPUT::::");
-		logger.info(convertUtil.fromObjectToJsonString(tokenLive));
+		logger.info(ConvertUtil.fromObjectToJsonString(tokenLive));
 		return tokenLive;
 
 	}

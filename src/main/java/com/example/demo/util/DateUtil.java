@@ -6,13 +6,9 @@ import java.util.Date;
 
 public class DateUtil {
 	public static final String CREATION_DATE_PATTERN="yyyy-MM-dd HH:mm:ss";
+	private static final DateFormat creationDateFormat = new SimpleDateFormat(CREATION_DATE_PATTERN);
 	
-	private DateFormat creationDateFormat;
-	public DateUtil() {
-		creationDateFormat = new SimpleDateFormat(CREATION_DATE_PATTERN);
-	}
-	
-	public String getCurrentDate() {
+	public static String getCurrentDate() {
 		Date currentDate = new Date();
 		return creationDateFormat.format(currentDate);
 	}

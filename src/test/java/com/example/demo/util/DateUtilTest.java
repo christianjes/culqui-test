@@ -8,8 +8,7 @@ public class DateUtilTest {
 	
 	@Test
 	public void shouldGetCurrentDateAsString() {
-		DateUtil dateUtil = new DateUtil();
-		String currentDateAsString = dateUtil.getCurrentDate();
+		String currentDateAsString = DateUtil.getCurrentDate();
 		assertNotNull(currentDateAsString);
 	}
 
